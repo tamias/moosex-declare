@@ -23,6 +23,20 @@ differs from the C<with>-option of the C<class> and C<role> keywords in that it
 applies the roles immediately instead of defering application until the end of
 the class- or role-definition.
 
+In particular, this allows you to modify methods provided by the role.  For
+example:
+
+  role Role {
+    requires 'class_method';
+    method role_method { ... }
+  }
+
+  class Foo {
+    method class_method { ... }  # first, declare required methods
+    with 'Role';                 # then, apply the role
+    around role_method { ... }   # finally, modify the role's methods
+  }
+
 It also differs slightly from the C<with> provided by L<Moose|Moose> in that it
 expands relative role names (C<::Foo>) according to the currenc C<namespace>.
 

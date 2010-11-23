@@ -101,6 +101,17 @@ Sets a superclass for the class being declared.
 
 Applies a role or roles to the class being declared.
 
+(The actual application of the role happens at the end of the class definition.
+If you want to modify methods provided by the role, you must apply it within
+the body of the class instead:
+
+    class Foo {
+      with 'Role';
+      around role_method { ... }
+    }
+
+See also L<MooseX::Declare::Syntax::Keyword::With>.)
+
 =item is mutable
 
     class Foo is mutable { ... }
@@ -134,6 +145,17 @@ It's possible to specify options for roles:
     role Foo with Bar { ... }
 
 Applies a role to the role being declared.
+
+(The actual application of the role happens at the end of the role definition.
+If you want to modify methods provided by the consumed role, you must apply it
+within the body of the role instead:
+
+    role Foo {
+      with 'Bar';
+      around bar_method { ... }
+    }
+
+See also L<MooseX::Declare::Syntax::Keyword::With>.)
 
 =back
 
